@@ -27,12 +27,14 @@ public class PaymentezCustomModule extends ReactContextBaseJavaModule {
         return "PaymentezCustomModule";
     }
 
+    static String user_id,email;
 
     @ReactMethod
-    public void createCalendarEvent(String name, String location, Callback promise) {
-        Log.d("CalendarModule", "Create event called with name: " + name
-                + " and location: " + location);
-        promise.invoke(name + location);
+    public void passValue(String user_id, String email, Callback promise) {
+        //Log.d("CalendarModule", "Create event called with name: " + name + " and location: " + location);
+        this.user_id=user_id;
+        this.email=email;
+        promise.invoke(user_id + email);
     }
 
 }

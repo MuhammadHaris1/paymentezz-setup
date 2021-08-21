@@ -27,7 +27,7 @@
     <Button
         android:layout_width="213dp"
         android:layout_height="95dp"
-        android:text="CLick me"
+        android:text="Save Card"
         android:textColor="#000"
         android:id="@+id/btn"
 

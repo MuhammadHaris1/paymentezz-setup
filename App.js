@@ -13,14 +13,16 @@ import {
   ScrollView,
   View,
   UIManager,
-  Button
+  Button,
+  NativeModules,
+  DeviceEventEmitter
 } from 'react-native';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-// const { PaymentezCustomModule } = NativeModules;
+ const { PaymentezCustomModule } = NativeModules;
 // const TESTINGUI =  requireNativeComponent('TESTINGUI')
 import MyViewManager from './CustomView';
 
@@ -40,7 +42,14 @@ class App extends React.Component {
     }
   }
 
-
+  componentDidMount() {
+    DeviceEventEmitter.addListener('MyCustomEvent',(event)=>{
+        console.log("MyCustomEvent -->",event); 
+        console.log("MyCustomEvent MyCustomEventUser -->", event.MyCustomEventUser);
+        console.log("MyCustomEvent MyCustomEventEmail -->", event.MyCustomEventEmail);
+        // Add your Business Logic over here
+    });
+}
 
 
   render () {
@@ -50,12 +59,13 @@ class App extends React.Component {
       <View>
         <Button onPress={() => {
                 this.setState({showNativeComponent: !showNativeComponent})
-                // PaymentezCustomModule.createCalendarEvent('Mudassir', 'Raza', (status) => {
-                //   console.log('Result ',status);
-                //  })
+                PaymentezCustomModule.passValue('2', 'test@gmail.com', (status) => {
+                  console.log('Result ',status);
+                 })
+                 
             }} title="Create Calender" />
           
-          {showNativeComponent && <MyViewManager style={{height:"100%", width: "100%"}} />}
+          {showNativeComponent && <MyViewManager  style={{height:"100%", width: "100%"}} />}
       </View>
     )
   }
